@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+{% include 'transport/includes/general-header.inc.html' %}
+     <section class="inner-banner">
+            <div class="container">
+                <ul class="thm-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="sep">.</span></li>
+                    <li><span class="page-title">Dashboard</span></li>
+                </ul><!-- /.thm-breadcrumb -->
+                <h2>Dashboard</h2>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>{{ message }}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+     </section>
+    <section class="taxi-style-one">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-taxi-one">
+                        <div class="inner-content">
+                            <img src="{{ request.user.driver.profile_image.url|default_if_none:'{% static "images/default.jpg" %}' }}" alt="Awesome Image" height="200vh" width="350vw"/>
+                            <h3>
+                                Completed Rides
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="name-line">Count:</span>
+                                    <span class="price-line">{{ completed_bookings.count }}</span>
+                                </li>
+                            </ul><!-- /.feature-list -->
+                        </div><!-- /.inner-content -->
+                    </div><!-- /.single-taxi-one -->
+                </div>
+            <div class="col-lg-4">
+                    <div class="single-taxi-one">
+                        <div class="inner-content">
+                            <img src="{{ request.user.driver.profile_image.url }}" alt="Awesome Image" height="200vh" width="350vw"/>
+                            <h3>
+                                Pending Rides
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="name-line">Count:</span>
+                                    <span class="price-line">{{ pending_bookings.count }}</span>
+                                </li>
+                            </ul><!-- /.feature-list -->
+                        </div><!-- /.inner-content -->
+                    </div><!-- /.single-taxi-one -->
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-taxi-one">
+                        <div class="inner-content">
+                            <img src="{{ request.user.driver.profile_image.url }}" alt="Awesome Image" height="200vh" width="350vw"/>
+                            <h3>
+                                Rejected Rides
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="name-line">Count:</span>
+                                    <span class="price-line">{{ rejected_bookings.count }}</span>
+                                </li>
+                            </ul><!-- /.feature-list -->
+                        </div><!-- /.inner-content -->
+                    </div><!-- /.single-taxi-one -->
+                </div>
+
+            </div>
+
+        </div><!-- /.container -->
+    </section>
+    <hr class="style-one">
+
+    <section class="taxi-style-one">
+        <div class="container">
+            <div class="table-responsive">
+        <table class="table table-striped">
+          <caption>Bookings</caption>
+          <thead class=" thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Full Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Location</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pending_booking in pending_bookings %}
+                <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ pending_booking.full_name }}</td>
+              <td>{{ pending_booking.phone }}</td>
+              <td>{{ pending_booking.location }}</td>
+              <td>{{ pending_booking.destination }}</td>
+              <td class="d-flex">
+                  <form action="{% url 'transport:approve_ride' pending_booking.id %}" method="POST" class="mr-1">
+                      {% csrf_token %}
+                      <select name="rideStatus" class="custom-select" onchange="this.form.submit()">
+                          <option selected>Select Action</option>
+                          <option value="approve">Accept</option>
+                          <option value="reject">Reject</option>
+                      </select>
+                  </form>
+              </td>
+            </tr>
+                {% empty %}
+                 <td colspan="6" class="text-center">
+                    No Bookings yet
+                 </td>
+            {% endfor %}
+
+          </tbody>
+        </table>
+    </div>
+        </div>
+    </section>
+{% endblock %}

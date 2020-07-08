@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Driver Login{% endblock %}
+
+
+{% block content %}
+    <section class="inner-banner">
+            <div class="container">
+                <ul class="thm-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="sep">.</span></li>
+                    <li><span class="page-title">Login</span></li>
+                </ul><!-- /.thm-breadcrumb -->
+                <h2>Login</h2>
+            </div><!-- /.container -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>{{ message }}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+        </section>
+<section class="book-ride-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-image-block">
+                    <img src="{% static 'images/resources/choise-1-1.png' %}" alt="Awesome Image" />
+                </div><!-- /.image-block -->
+            </div>
+            <div class="col-lg-6">
+                <div class="block-title">
+                    <div class="dot-line"></div><!-- /.dot-line -->
+                    <h2>Welcome back Driver!</h2>
+                </div><!-- /.block-title -->
+                <form action="{% url 'transport:process_driver_login' %}" class="booking-form-two" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-holder">
+                                <input type="text" name="username" placeholder="Enter your Username">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-12 -->
+                        <div class="col-lg-12">
+                            <div class="input-holder">
+                                <input type="password" name="password" placeholder="Enter your Password">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <button type="submit" class="book-btn">Sign In</button>
+                    </div>
+                </form><!-- /.booking-form-two -->
+            </div><!-- /.col-lg-8 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.book-ride-two -->
+{% endblock %}

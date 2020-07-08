@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book Ride{% endblock %}
+
+{% block content %}
+
+<section class="inner-banner">
+    <div class="container">
+        <ul class="thm-breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><span class="sep">.</span></li>
+            <li><span class="page-title">Book a Ride</span></li>
+        </ul><!-- /.thm-breadcrumb -->
+        <h2>Book a Ride</h2>
+    </div><!-- /.container -->
+</section><!-- /.inner-banner -->
+<section class="book-ride-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="block-title">
+                    <div class="dot-line"></div><!-- /.dot-line -->
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <strong>{{ message }}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+                    <h2>Make your booking</h2>
+                </div><!-- /.block-title -->
+                <form action="{% url 'transport:process_booking' driver.user.id %}" class="booking-form-two" method="POST">
+                    {% csrf_token %}
+                    <p>There are many variations of passages of lorem ipsum available but
+                        the majority have suffered alteration in some form by injected humor
+                        or random word which don't look even slightly believ-
+                        <br>able you are going to use a passage.
+                    </p>
+                    <h3 class="form-block-title">Select Information</h3><!-- /.form-block-title -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="name" placeholder="Your name">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="email" placeholder="Email address">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="phone" placeholder="Phone">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="passengers" placeholder="Passengers #">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="location" placeholder="Pick up address">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-holder">
+                                <input type="text" name="destination" placeholder="Drop off address">
+                            </div><!-- /.input-holder -->
+                        </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    <ul class="special-checkbox">
+                        <li>
+                            <span class="input-checker">
+                                <input type="checkbox" name="apt_vehicle_services_needed" value="">
+                            </span>By using this form you agree to our terms & conditions.
+                        </li>
+                    </ul>
+                    <button type="submit" class="book-btn">Book Now</button>
+                </form><!-- /.booking-form-two -->
+            </div><!-- /.col-lg-8 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.book-ride-two -->
+{% endblock %}

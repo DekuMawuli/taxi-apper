@@ -1,0 +1,20 @@
+{% load static %}
+<header class="site-header header-one">
+            <div class="top-bar">
+                <div class="container">
+                    <div class="left-block">
+                        <a href="#"><i class="fa fa-envelope"></i>smart.world@koptek.com</a>
+                    </div><!-- /.left-block -->
+                    <div class="logo-block">
+                        <a href="#"><img src="{% static 'images/resources/logo-1-1.png' %}" alt="Awesome Image" /></a>
+                    </div><!-- /.logo-block -->
+                    <div class="social-block">
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                    </div><!-- /.social-block -->
+                </div><!-- /.container -->
+            </div><!-- /.top-bar -->
+            {% include 'transport/includes/navbar.inc.html' %}
+        </header>

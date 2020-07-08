@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Driver Register{% endblock %}
+
+
+{% block content %}
+    <section class="inner-banner">
+            <div class="container">
+                <ul class="thm-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="sep">.</span></li>
+                    <li><span class="page-title">Register</span></li>
+                </ul><!-- /.thm-breadcrumb -->
+                <h2>Register</h2>
+            </div><!-- /.container -->
+        </section>
+<section class="book-ride-two">
+    {% if messages %}
+        {% for message in messages %}
+            <p>
+                {{ message }}
+            </p>
+        {% endfor %}
+
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-image-block">
+                    <img src="{% static 'images/resources/about-1-1.jpg' %}" alt="Awesome Image" />
+                </div><!-- /.image-block -->
+            </div>
+            <div class="col-lg-6">
+                <div class="block-title">
+                    <div class="dot-line"></div><!-- /.dot-line -->
+                    <h2>Register Here!</h2>
+                </div><!-- /.block-title -->
+                <form action="{% url 'transport:process_driver_register' %}" class="booking-form-two" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for field in form %}
+                            <div class="col-lg-6">
+                            <div class="input-holder">
+                                    {{field}}
+                                </div><!-- /.input-holder -->
+                            </div>
+                        {% endfor %}
+                    <button type="submit" class="book-btn">Create Account</button>
+                    </div>
+                </form><!-- /.booking-form-two -->
+            </div><!-- /.col-lg-8 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.book-ride-two -->
+{% endblock %}

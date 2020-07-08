@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Driver Login{% endblock %}
+
+
+{% block content %}
+    <section class="inner-banner">
+            <div class="container">
+                <ul class="thm-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="sep">.</span></li>
+                    <li><span class="page-title">Profile</span></li>
+                </ul><!-- /.thm-breadcrumb -->
+                <h2>Your current Info here</h2>
+            </div><!-- /.container -->
+        </section>
+<section class="book-ride-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-image-block">
+                    <img src="{{ request.user.driver.profile_image.url }}" alt="Awesome Image" />
+                </div><!-- /.image-block -->
+            </div>
+            <div class="col-lg-6">
+                <div class="block-title">
+                    <div class="dot-line"></div><!-- /.dot-line -->
+                    {% if user_form.errors %}
+                        {% for error in user_form.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% elif driver_form.errors %}
+                        {% for error in driver_form.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                          <strong>{{ message }}</strong>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+                </div><!-- /.block-title -->
+                <form action="{% url 'transport:update_profile' %}" class="booking-form-two" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for uField in user_form %}
+                            <div class="col-lg-6">
+                            <p>
+                                {{ uField.label }}
+                            </p>
+                            <div class="input-holder">
+                                {{uField}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for dField in driver_form %}
+                                <div class="col-lg-6">
+                                <p>
+                                {{ dField.label }}
+                            </p>
+                                <div class="input-holder">
+                                    {{dField}}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="book-btn">Update Info</button>
+                    </div>
+                </form><!-- /.booking-form-two -->
+            </div><!-- /.col-lg-8 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.book-ride-two -->
+{% endblock %}

@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-light header-navigation stricky">
+                <div class="container clearfix">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="logo-box clearfix">
+                        <button class="menu-toggler" data-target="#main-nav-bar">
+                            <span class="fa fa-bars"></span>
+                        </button>
+                    </div><!-- /.logo-box -->
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="main-navigation" id="main-nav-bar">
+                        <ul class="navigation-box">
+                            {% if request.user.is_authenticated %}
+                                 <li class="{% if 'dashboard' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:driver_dashboard' %}">Dashboard</a>
+                                </li>
+                            {% else %}
+                                <li class="{% if request.path == '/' %}current {% endif %}">
+                                    <a href="{% url 'transport:landing_page' %}">Home</a>
+                                </li>
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                                <li class="{% if 'profile' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:driver_profile' %}">Profile</a>
+                                </li>
+                            {% else %}
+                                <li class="{% if 'book-ride' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:select_driver' %}">Book A Ride</a>
+                                </li>
+                                 <li class="{% if 'about' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:about_us' %}">About</a>
+                                </li>
+                                <li class="{% if 'contact' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:contact_us' %}">Contact</a>
+                                </li>
+                            {% endif %}
+                            <li class="{% if 'blog' in request.path %}current {% endif %}">
+                                <a href="#">Blog</a>
+                            </li>
+                             {% if request.user.is_authenticated %}
+                                 <li class="{% if 'more' in request.path %}current {% endif %}">
+                                    <a href="#">More</a>
+                                    <ul class="sub-menu">
+                                        <li class="{% if 'about' in request.path %}current {% endif %}">
+                                            <a href="{% url 'transport:about_us' %}">About</a>
+                                        </li>
+                                        <li class="{% if 'contact' in request.path %}current {% endif %}">
+                                            <a href="{% url 'transport:contact_us' %}">Contact</a>
+                                        </li>
+                                    </ul><!-- /.sub-menu -->
+                                </li>
+                                 <li class="{% if 'more' in request.path %}current {% endif %}">
+                                    <a href="{% url 'transport:driver_logout' %}">Logout</a>
+                                </li>
+                             {% else %}
+                                 <li class="{% if 'more' in request.path %}current {% endif %}">
+                                    <a href="#">More</a>
+                                    <ul class="sub-menu">
+                                        <li class="{% if 'all-drivers' in request.path %}current {% endif %}">
+                                            <a href="{% url 'transport:all_drivers' %}">All Drivers</a>
+                                        </li>
+                                        <li class="{% if 'driver-login' in request.path %}current {% endif %}">
+                                            <a href="{% url 'transport:login_driver' %}">Driver Login</a>
+                                        </li>
+                                        <li class="{% if 'add-driver' in request.path %}current {% endif %}">
+                                            <a href="{% url 'transport:register_driver' %}">Become our Driver</a>
+                                        </li>
+                                    </ul><!-- /.sub-menu -->
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="right-side-box">
+                        <a href="callto:888-888-0000" class="contact-btn-block">
+                            <span class="icon-block">
+                                <i class="conexi-icon-phone-call"></i>
+                            </span>
+                            <span class="text-block">
+                                888 888 0000
+                                <span class="tag-line">Phone line</span>
+                            </span>
+                        </a>
+                    </div><!-- /.right-side-box -->
+                </div>
+                <!-- /.container -->
+            </nav>

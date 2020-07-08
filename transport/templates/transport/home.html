@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Welcome
+{% endblock %}
+{% block content %}
+
+    {#     MAIN BANNER INCLUDED   #}
+        {% include 'transport/includes/main-banner.inc.html' %}
+    {#     MAIN BANNER INCLUDED   #}
+    <section class="about-style-one ">
+        <div class="container">
+            <div class="block-title text-center">
+                <div class="dot-line"></div><!-- /.dot-line -->
+                <p>Welcome to conexi company</p>
+                <h2>Your first choice <br> for traveling anywhere</h2>
+            </div><!-- /.block-title -->
+            <div class="row high-gutter">
+                <div class="col-lg-6">
+                    <div class="about-image-block">
+                        <img src="{% static 'images/resources/choise-1-1.png' %}" alt="Awesome Image" />
+                        <p>There are many variations of passages of lorem ipsum available but the majority
+                            have suffered alteration in some form by injected humour or random words which don't look
+                            even slightly believable. If you are going to use a passage of lorem ipsum you need to be
+                            sure there isn't anything embarrassing.
+                        </p>
+                    </div><!-- /.image-block -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="text-block">
+                        <div class="video-block-one">
+                            <div class="image-block">
+                                <div class="inner-block">
+                                    <img src="{% static 'images/resources/video-1-1.png' %}" alt="Awesome Image" />
+                                    <a href="https://www.youtube.com/watch?v=hsb-fA6ApiE" class="video-popup"><i class="fa fa-play"></i></a>
+                                </div><!-- /.inner-block -->
+                            </div><!-- /.image-block -->
+                            <div class="content-block">
+                                <h3>We’re specialized in providing a high quality service</h3>
+                            </div><!-- /.content-block -->
+                        </div><!-- /.video-block-one -->
+                        <p>There are many variations of passages of lorem ipsum available but the majority have suffered alteration in some form by injected humour or random words which don't look even slightly believable. If you are going to use a passage of lorem ipsum you need to be sure there isn't anything embarrassing.</p>
+                        <hr class="style-one">
+                        <div class="call-block">
+                            <div class="left-block">
+                                <div class="icon-block">
+                                    <i class="conexi-icon-phone-call"></i>
+                                </div><!-- /.icon-block -->
+                                <div class="content-block">
+                                    <p>Call us now and make <br>your booking</p>
+                                </div><!-- /.content-block -->
+                            </div><!-- /.left-block -->
+                            <div class="right-block">
+                                <a class="phone-number" href="callto:888-888-0000">888 888 0000</a>
+                            </div><!-- /.right-block -->
+                        </div><!-- /.call-block -->
+                    </div><!-- /.text-block -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.about-style-one -->
+    <section class="cta-style-two">
+        <div class="container">
+            <div class="content-block">
+                <p>Make a call or fill form</p>
+                <h3>Call our agent to get a quote.</h3>
+            </div><!-- /.content-block -->
+            <div class="button-block">
+                <a href="book-ride.html" class="cta-btn">Book Taxi Now</a>
+            </div><!-- /.button-block -->
+        </div><!-- /.container -->
+    </section><!-- /.cta-style-two -->
+    <section class="taxi-style-one">
+        <div class="container">
+            <div class="block-title text-center">
+                <div class="dot-line"></div><!-- /.dot-line -->
+                <p>Our best Drivers</p>
+                <h2>Choose a Driver</h2>
+            </div>
+            <div class="row">
+                {% for driver in drivers %}
+                    <div class="col-lg-4">
+                    <div class="single-taxi-one">
+                        <div class="inner-content">
+                            <img src="{{ driver.profile_image.url }}" alt="Awesome Image" height="200px" width="300vw"/>
+                            <h3>
+                                {{ driver.get_title_display }} {{ driver.user.first_name }} {{ driver.user.last_name }}
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="name-line">Location:</span>
+                                    <span class="price-line">{{ driver.current_location }}</span>
+                                </li>
+                                <li>
+                                    <span class="name-line">Vehicle #:</span>
+                                    <span class="price-line">{{ driver.vehicle_number }}</span>
+                                </li>
+                                <li>
+                                    <span class="name-line">Vehicle Name:</span>
+                                    <span class="price-line">{{ driver.vehicle_name }}</span>
+                                </li>
+                                <li>
+                                    <span class="name-line">Status:</span>
+                                    <span class="price-line" style="color: {% if driver.is_available %} green {% endif %}">
+                                        {% if driver.is_available %}
+                                            Available
+                                        {% else %}
+                                            Booked
+                                        {% endif %}
+                                    </span>
+                                </li>
+                            </ul><!-- /.feature-list -->
+                            {% if driver.is_available %}
+                                <a href="{% url 'transport:book_ride' driver.user.id %}" class="book-taxi-btn">Book Taxi</a>
+                            {% endif %}
+                        </div><!-- /.inner-content -->
+                    </div><!-- /.single-taxi-one -->
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div><!-- /.container -->
+    </section><!-- /.taxi-style-one -->
+    <hr class="style-one">
+    <section class="feature-style-one thm-black-bg">
+            <img src="{% static 'images/background/feature-bg-1-1.png' %}" alt="Awesome Image" class="feature-bg" />
+            <div class="container">
+                <div class="block-title text-center">
+                    <div class="dot-line"></div><!-- /.dot-line -->
+                    <p>Conexi benefit list</p>
+                    <h2 class="light">Why choose us</h2>
+                </div><!-- /.block-title text-center -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="single-feature-one">
+                            <div class="icon-block">
+                                <i class="conexi-icon-insurance"></i>
+                            </div><!-- /.icon-block -->
+                            <h3><a href="#">Safety Guarantee</a></h3>
+                            <p>Lorem ipsum dolor sit amet <br> cons adipisci elit vehicula est <br> non lac at quam.</p>
+                            <a href="#" class="more-link">Read More</a>
+                        </div><!-- /.single-feature-one -->
+                    </div><!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <div class="single-feature-one">
+                            <div class="icon-block">
+                                <i class="conexi-icon-seatbelt"></i>
+                            </div><!-- /.icon-block -->
+                            <h3><a href="#">DBS Cleared Drivers</a></h3>
+                            <p>Lorem ipsum dolor sit amet <br> cons adipisci elit vehicula est <br> non lac at quam.</p>
+                            <a href="#" class="more-link">Read More</a>
+                        </div><!-- /.single-feature-one -->
+                    </div><!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <div class="single-feature-one">
+                            <div class="icon-block">
+                                <i class="conexi-icon-consent"></i>
+                            </div><!-- /.icon-block -->
+                            <h3><a href="#">Free Quotation</a></h3>
+                            <p>Lorem ipsum dolor sit amet <br> cons adipisci elit vehicula est <br> non lac at quam.</p>
+                            <a href="#" class="more-link">Read More</a>
+                        </div><!-- /.single-feature-one -->
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section><!-- /.feature-style-one -->
+{% endblock %}
