@@ -33,4 +33,4 @@ six==1.14.0
 sqlparse==0.3.1
 urllib3==1.25.8
 webencodings==0.5.1
-websockets==8.1
+websockets==9.1
